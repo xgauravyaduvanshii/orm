@@ -2227,6 +2227,7 @@ export interface VariantRelationMutator<
   DisconnectDisabled extends boolean = false,
   FilteredWritesDisabled extends boolean = false,
   ParentLinkFields extends string = never,
+  ConflictActions extends NestedCreateConflictAction = NestedCreateConflictAction,
 > extends Pick<
     RelationMutatorMethods<
       TContract,
@@ -2250,11 +2251,13 @@ export interface VariantRelationMutator<
     data: LinkWritesDisabled extends true
       ? never
       : NestedVariantCreateInput<TContract, ModelName, VariantValue>,
+    options?: RelationCreateOptions<TContract, ModelName, ConflictActions>,
   ): RelationMutationCreate<TContract, ModelName>;
   create(
     data: LinkWritesDisabled extends true
       ? never
       : readonly NestedVariantCreateInput<TContract, ModelName, VariantValue>[],
+    options?: RelationCreateOptions<TContract, ModelName, ConflictActions>,
   ): RelationMutationCreate<TContract, ModelName>;
 }
 
@@ -2291,7 +2294,8 @@ export type RelationMutator<
           BareDisconnectDisabled,
           VariantDisconnectDisabled,
           FilteredWritesDisabled,
-          ParentLinkFields
+          ParentLinkFields,
+          ConflictActions
         >;
       }
     : unknown);

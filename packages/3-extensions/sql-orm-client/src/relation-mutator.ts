@@ -81,11 +81,13 @@ function createVariantRelationMutator<
       data:
         | MutationCreateInput<TContract, ModelName>
         | readonly MutationCreateInput<TContract, ModelName>[],
+      options?: NestedCreateOptions<TContract, ModelName>,
     ): RelationMutationCreate<TContract, ModelName> {
       return {
         kind: 'create',
         data: createRows(data),
         ...ifDefined('variant', state.variantValue),
+        ...ifDefined('options', options),
       };
     },
     connect(criteria: Record<string, unknown> | readonly Record<string, unknown>[]) {
